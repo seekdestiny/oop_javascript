@@ -6,8 +6,8 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-	this.x = 100;
-	this.y = 100;
+ this.x = 100;
+ this.y = 100;
 };
 
 // Update the enemy's position, required method for game
@@ -28,8 +28,8 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 var Player = function() {
     this.sprite ='images/char-boy.png';
-	this.x = 2 * 101;
-	this.y = 4 * 83 + 50;
+ this.x = 2 * 101;
+ this.y = 4 * 83 + 50;
 };
 
 Player.prototype.update = function(dt) {
@@ -42,18 +42,18 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(mvDrctn) {
-	if (mvDrctn == 'left') {
+    if (mvDrctn == 'left') {
         this.x -= 101;
-	}
+    }
     if (mvDrctn == 'right') {
         this.x += 101;
-	}
+    }
     if (mvDrctn == 'up') {
         this.y -= 83;
-	}
-	if (mvDrctn == 'down') {
+    }
+    if (mvDrctn == 'down') {
         this.y += 83;
-	}
+    }
 };
 
 // Now instantiate your objects.
