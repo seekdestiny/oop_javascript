@@ -3,7 +3,7 @@ const unitWidth = 101;
 const unitHeight = 83;
 
 var playerInitX = 2 * unitWidth;
-var playerInitY = 4 * unitHeight + 50;
+var playerInitY = 4 * unitHeight + 53;
 
 // Enemies our player must avoid
 var Enemy = function() {
@@ -13,16 +13,30 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    this.x = 100;
-    this.y = 100;
+    this.restart();
 };
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+    this.x += this.speed * dt;
+
+    if (this.x > 5 * unitWidth) {
+        this.restart();
+    }
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+};
+
+Enemy.prototype.restart = function() {
+    this.x = -unitWidth;
+    this.y = this.getRandomIntInclusive(1, 4) * unitHeight - 30;
+    this.speed = this.getRandomIntInclusive(80, 200);
+};
+
+Enemy.prototype.getRandomIntInclusive = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -45,7 +59,15 @@ Player.prototype.update = function(dt) {
         this.y = playerInitY;
     }
 
-
+    for(var i in allEnemies){
+        if (this.y == allEnemies[i].y) {
+            if ((this.x + 10 >= allEnemies[i].x && this.x + 10 <= allEnemies[i].x + unitWidth - 30) ||
+                (this.x + 70 >= allEnemies[i].x && this.x + 70 <= allEnemies[i].x + unitWidth - 30)) {
+                this.x = playerInitX;
+                this.y = playerInitY;
+            }
+        }
+    }
 };
 
 Player.prototype.render = function() {
@@ -79,7 +101,11 @@ Player.prototype.handleInput = function(mvDrctn) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var enemy1 = new Enemy();
-var allEnemies = [enemy1];
+var enemy2 = new Enemy();
+var enemy3 = new Enemy();
+var enemy4 = new Enemy();
+var enemy5 = new Enemy();
+var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
 
 var player = new Player();
 
