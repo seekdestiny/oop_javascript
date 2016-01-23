@@ -1,3 +1,10 @@
+// Define some constant parameter
+const unitWidth = 101;
+const unitHeight = 83;
+
+var playerInitX = 2 * unitWidth;
+var playerInitY = 4 * unitHeight + 50;
+
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
@@ -6,8 +13,8 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
- this.x = 100;
- this.y = 100;
+    this.x = 100;
+    this.y = 100;
 };
 
 // Update the enemy's position, required method for game
@@ -28,8 +35,8 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 var Player = function() {
     this.sprite ='images/char-boy.png';
- this.x = 2 * 101;
- this.y = 4 * 83 + 50;
+    this.x = playerInitX;
+    this.y = playerInitY;
 };
 
 Player.prototype.update = function(dt) {
@@ -43,16 +50,24 @@ Player.prototype.render = function() {
 
 Player.prototype.handleInput = function(mvDrctn) {
     if (mvDrctn == 'left') {
-        this.x -= 101;
+        if (this.x > 0) {
+            this.x -= unitWidth;
+        }
     }
     if (mvDrctn == 'right') {
-        this.x += 101;
+        if (this.x < 4 * unitWidth) {
+            this.x += unitWidth;
+        }
     }
     if (mvDrctn == 'up') {
-        this.y -= 83;
+        if (this.y > 0) {
+            this.y -= unitHeight;
+        }
     }
     if (mvDrctn == 'down') {
-        this.y += 83;
+        if (this.y < playerInitY) {
+            this.y += unitHeight;
+        }
     }
 };
 
