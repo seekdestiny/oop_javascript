@@ -40,6 +40,10 @@ var Player = function() {
 };
 
 Player.prototype.update = function(dt) {
+    if (this.y < 0) {
+        this.x = playerInitX;
+        this.y = playerInitY;
+    }
 
 
 };
